@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Title = ({greeting} ) => {
+export const Title = ({greeting}) => {
     return (
         <h1> {greeting}</h1>
     );
