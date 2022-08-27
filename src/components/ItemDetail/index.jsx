@@ -1,12 +1,20 @@
-import React from "react";
-import Button from 'react-bootstrap/Button';
+import React, {useState} from "react";
+import {Link} from "react-router-dom"
+import { useCartContext } from "../../context/CartContext";
 import Card from 'react-bootstrap/Card';
 import ItemCount from "../ItemCount"
+import Button from 'react-bootstrap/Button'
+import "../ItemDetail/itemDetail.css"
 
-export const ItemDetail = ({data}) => {
+
+export const ItemDetail = ({ data }) => {
+
+    const [goToCart, setGoToCart] = useState(false);
+    const { addProduct } = useCartContext();
 
     const onAdd = (quantity) => {
-        console.log(`Compraste ${quantity} unidades`);
+        setGoToCart(true);
+        addProduct(data, quantity)
     };
 
 
@@ -19,7 +27,9 @@ export const ItemDetail = ({data}) => {
                     Excelente crema
                 </Card.Text>
                 
-                <Button variant="primary"><ItemCount initial={1} stock={5} onAdd={onAdd} /></Button>
+                {
+                    goToCart ? <Button> <Link className= "comprar" to="/cart">Terminar compra</Link> </Button>   : <ItemCount variant="primary" initial={1} stock={5} onAdd={onAdd} />
+                }
             </Card.Body>
         </Card>
     );
