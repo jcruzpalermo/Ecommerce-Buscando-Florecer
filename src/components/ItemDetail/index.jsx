@@ -24,11 +24,14 @@ export const ItemDetail = ({ data }) => {
             <Card.Body>
                 <Card.Title>{data.title}</Card.Title>
                 <Card.Text>
-                    Excelente crema
+                    <div>
+                    {data.description}
+                    ${data.price}
+                    </div>
                 </Card.Text>
                 
                 {
-                    goToCart ? <Button> <Link className= "comprar" to="/cart">Terminar compra</Link> </Button>   : <ItemCount variant="primary" initial={1} stock={5} onAdd={onAdd} />
+                    goToCart ? <Button > <Link className= "comprar" to="/cart">Terminar compra</Link> </Button>   : <ItemCount variant="primary" initial={1} stock={5} onAdd={onAdd} />
                 }
             </Card.Body>
         </Card>
