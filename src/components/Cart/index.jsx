@@ -5,23 +5,19 @@ import ItemCart from "../ItemCart";
 import Button from 'react-bootstrap/Button'
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import './cart.css'
+import ContactForm from "../ContactForm";
 
 
 const Cart = () => {
-    const { cart, totalPrice } = useCartContext();
+    const { cart, totalPrice} = useCartContext();
     const [numero, setNumero] = useState()
     
     const order = {
-        buyer: {
-            name: 'Jorge',
-            email: 'Jorge@gmail.com',
-            telefono: '2211378990',
-            direccion: '6 y 507'
-        },
         items: cart.map((product) => ({ id: product.id, title: product.title, price: product.price, quantity: product.quantity })),
-        total: totalPrice(),
+        total: totalPrice()
     }
-
+    
+    
     const handleClick = () => {
         const db = getFirestore();
         const ordersCollection = collection(db, 'orders');
@@ -46,6 +42,7 @@ const Cart = () => {
         <p>
             total: ${totalPrice()}
         </p>
+        <ContactForm/>
         <Button onClick={handleClick}> Generar Orden</Button>
         {
         setNumero ? <div>Id de orden: {numero}</div> : ''

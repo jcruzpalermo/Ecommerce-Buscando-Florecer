@@ -8,6 +8,7 @@ Para iniciar la app en el navegador
 ***
 #### React-Bootstrap 
 Para darle estilo al navbar, catalogo y el detalle del producto elegido
+https://react-bootstrap.github.io/
 ***
 ##### Firebase
 Para almacenar los productos con sus respectivos detalles y las ordenes hechas por el usuario
