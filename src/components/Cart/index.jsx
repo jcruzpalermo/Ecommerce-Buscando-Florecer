@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useState}  from "react";
 import { Link } from 'react-router-dom';
 import { useCartContext } from "../../context/CartContext";
 import ItemCart from "../ItemCart";
 import Button from 'react-bootstrap/Button'
 import { addDoc, collection, getFirestore } from "firebase/firestore";
+import './cart.css'
+
 
 const Cart = () => {
     const { cart, totalPrice } = useCartContext();
+    const [numero, setNumero] = useState()
     
     const order = {
         buyer: {
@@ -23,7 +26,7 @@ const Cart = () => {
         const db = getFirestore();
         const ordersCollection = collection(db, 'orders');
         addDoc(ordersCollection, order)
-        .then(({ id }) => console.log(id))
+        .then(({ id }) => setNumero(id))
     }
 
     if (cart.length === 0) {
@@ -43,7 +46,12 @@ const Cart = () => {
         <p>
             total: ${totalPrice()}
         </p>
-        <Button onClick={handleClick}>Generar Orden</Button>
+        <Button onClick={handleClick}> Generar Orden</Button>
+        {
+        setNumero ? <div>Id de orden: {numero}</div> : ''
+        }
+            
+        
         </>
     );
 };

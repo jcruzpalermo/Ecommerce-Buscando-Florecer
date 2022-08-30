@@ -4,6 +4,8 @@ import './itemListContainer.css';
 import ItemList from "../ItemList";
 import Title from "../Title";
 import { useParams } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 // Traer el servicio de firestore
 //Crear un puntero al dato que queremos traer
@@ -11,9 +13,9 @@ import { useParams } from "react-router-dom";
 
 
 export const ItemListContainer = ({ texto }) => {
-    const [data, setData] = useState([]); 
+    const [data, setData] = useState([]);
 
-    const {categoriaId} = useParams();
+    const { categoriaId } = useParams();
 
     useEffect(() => {
         const querydb = getFirestore();
@@ -22,14 +24,14 @@ export const ItemListContainer = ({ texto }) => {
             const queryFilter = query(queryCollection, where("category", "==", categoriaId),
             );
             getDocs(queryFilter)
-            .then((res) => setData(res.docs.map((productos) => ({ id: productos.id, ...productos.data() })),
+                .then((res) => setData(res.docs.map((productos) => ({ id: productos.id, ...productos.data() })),
                 ),
-            );
-        }else {
+                );
+        } else {
             getDocs(queryCollection)
-            .then((res) => setData(res.docs.map((productos) => ({ id: productos.id, ...productos.data() })),
+                .then((res) => setData(res.docs.map((productos) => ({ id: productos.id, ...productos.data() })),
                 ),
-            );
+                );
         }
     }, [categoriaId]);
 
@@ -37,8 +39,13 @@ export const ItemListContainer = ({ texto }) => {
 
     return (
         <>
-        <Title greeting={texto}/>
-        <ItemList data={data} className="itemList"/>
+            <Container fluid>
+                <Row >
+                        <Title greeting={texto} />
+                        <ItemList data={data} />
+                </Row>
+            </Container>
+
         </>
     );
 };

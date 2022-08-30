@@ -24,10 +24,9 @@ export const ItemDetail = ({ data }) => {
             <Card.Body>
                 <Card.Title>{data.title}</Card.Title>
                 <Card.Text>
-                    <div>
                     {data.description}
+                    <br/>
                     ${data.price}
-                    </div>
                 </Card.Text>
                 
                 {
